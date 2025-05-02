@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Game Store</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+</head>
+<body>
+  <h1>Game Store</h1>
+  <div class="games">
+    {{range .}}
+    <div class="game-card">
+      <h3>{{.Title}}</h3>
+      <p>Price: ${{printf "%.2f" .Price}}</p>
+      <button 
+        hx-get="/purchase?title={{.Title}}" 
+        hx-target="#response-{{.ID}}" 
+        hx-swap="innerHTML">
+        Buy Now
+      </button>
+      <div id="response-{{.ID}}"></div>
+    </div>
+    {{end}}
+  </div>
+</body>
+</html>
